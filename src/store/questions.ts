@@ -21,7 +21,7 @@ export const useQuestionsStore = create<State>()(devtools(persist((set,get)=>{
     currentQuestion: 0,
 
     fetchQuestions: async (limit: number) =>{
-      const response = await fetch('https://api.jsonbin.io/v3/b/643fbe2bc0e7653a05a77535', {
+      const response = await fetch('https://api.jsonbin.io/v3/b/6517770012a5d37659851fe1', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -34,9 +34,9 @@ export const useQuestionsStore = create<State>()(devtools(persist((set,get)=>{
   }
 
   const json = await response.json()
-
+console.log(json)
       
-      const questions = json.sort(() => Math.random() - 0.5).slice(0, limit)
+      const questions = json.record.sort(() => Math.random() - 0.5).slice(0, limit)
       set({ questions })
       /* Se puede poner state => ...state, questions
 
