@@ -34,8 +34,6 @@ export const useQuestionsStore = create<State>()(devtools(persist((set,get)=>{
   }
 
   const json = await response.json()
-console.log(json)
-      
       const questions = json.record.sort(() => Math.random() - 0.5).slice(0, limit)
       set({ questions })
       /* Se puede poner state => ...state, questions
