@@ -13,14 +13,28 @@ interface State{
   reset: () => void
 }
 
+const apiKey = '$2a$10$YgV6QkRilQSG44a4jQUE3.3Y.ZVnJRjqEQ9.Pds0438i6nk53g3MS'
+
 export const useQuestionsStore = create<State>()(devtools(persist((set,get)=>{
   return {
     questions: [],
     currentQuestion: 0,
 
     fetchQuestions: async (limit: number) =>{
-      const res = await fetch('http://localhost:5173/data.json')
-      const json = await res.json()
+      const response = await fetch('https://api.jsonbin.io/v3/b/643fbe2bc0e7653a05a77535', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Access-Key': apiKey
+    }
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch comments.')
+  }
+
+  const json = await response.json()
+
       
       const questions = json.sort(() => Math.random() - 0.5).slice(0, limit)
       set({ questions })
